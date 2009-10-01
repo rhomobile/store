@@ -1,0 +1,42 @@
+<div class="toolbar">
+	<h1 id="pageTitle">
+		New Product
+	</h1>
+</div>
+
+<form title="New Product" 
+	  class="panel"
+	  id="product_new_form" 
+	  method="POST" 
+	  action="<%=url_for(:action => :create)%>" selected="true">
+	<fieldset>
+		<input type="hidden" name="id" value="<%=@product.object%>"/>
+		
+		  <div class="row">
+			  <label>Name: </label>
+			  <input type="text" name="product[name]"/>
+		  </div>
+		
+		  <div class="row">
+			  <label>Sku: </label>
+			  <input type="text" name="product[sku]"/>
+		  </div>
+		
+		  <div class="row">
+			  <label>Brand: </label>
+			  <input type="text" name="product[brand]"/>
+		  </div>
+		
+		  <div class="row">
+			  <label>Price: </label>
+			  <input type="text" name="product[price]"/>
+		  </div>
+		
+		  <div class="row">
+			  <label>Quantity: </label>
+			  <input type="text" name="product[quantity]"/>
+		  </div>
+		
+	</fieldset>
+	<input type="submit" value="Create"/>
+</form>

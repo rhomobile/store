@@ -1,0 +1,39 @@
+<div class="toolbar">
+	<h1 id="pageTitle">
+		<%=@product.name%>
+	</h1>
+</div>
+
+<div class="panel" selected="true">
+
+<a class="button right_button" href="<%=url_for(:action => :edit, :id => @product.object)%>" target="_self">Edit</a>
+
+<table class="grid">
+  
+  <tr>
+	<td class="gridleft">Name</td>
+    <td class="gridright"><%=@product.name%></td>
+  </tr>
+  
+  <tr>
+	<td class="gridleft">Sku</td>
+    <td class="gridright"><%=@product.sku%></td>
+  </tr>
+  
+  <tr>
+	<td class="gridleft">Brand</td>
+    <td class="gridright"><%=@product.brand%></td>
+  </tr>
+  
+  <tr>
+	<td class="gridleft">Price</td>
+    <td class="gridright"><%=@product.price%></td>
+  </tr>
+  
+  <tr>
+	<td class="gridleft">Quantity</td>
+    <td class="gridright"><%=@product.quantity%></td>
+  </tr>
+  
+</table>
+</div>
