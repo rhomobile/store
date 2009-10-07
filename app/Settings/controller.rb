@@ -21,10 +21,14 @@ class SettingsController < Rho::RhoController
       WebView.navigate Rho::RhoConfig.start_path
       SyncEngine.dosync
     else
-      @msg = @params['error_message']
-      if @msg == nil or @msg.length == 0 
+      if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
+        @msg = @params['error_message']
+      end
+        
+      if !@msg || @msg.length == 0   
         @msg = Rho::RhoError.new(err_code).message
       end
+      
       WebView.navigate ( url_for :action => :login, :query => {:msg => @msg} )
     end  
   end
@@ -66,4 +70,10 @@ class SettingsController < Rho::RhoController
     @msg =  "Sync has been triggered."
     redirect :action => :index, :query => {:msg => @msg}
   end
+  
+  def sync_object_notify
+    puts 'sync_object_notify: ' + @params.inspect    
+    WebView.refresh
+  end
+  
 end
