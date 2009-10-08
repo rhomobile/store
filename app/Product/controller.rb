@@ -24,41 +24,31 @@ class ProductController < Rho::RhoController
   # GET /Product/{1}/edit
   def edit
     @product = Product.find(@params['id'])
-    if @product && !@product.can_modify
-        render :action => :cannot_edit
-    else    
-        render :action => :edit
-    end
+    render :action => :edit
   end
 
   # POST /Product/create
   def create
     @product = Product.new(@params['product'])
-    if !@product.save
-        render :action => :cannot_edit
-    else
-        redirect :action => :index
-    end    
+    @product.save
+    redirect :action => :index
   end
 
   # POST /Product/{1}/update
   def update
     @product = Product.find(@params['id'])
-    if !@product.update_attributes(@params['product'])
-        render :action => :cannot_edit
-    else
-        redirect :action => :index
-    end
-        
+    @product.update_attributes(@params['product'])
+    
+    @product.sku = 555
+    @product.save
+    
+    redirect :action => :index
   end
 
   # POST /Product/{1}/delete
   def delete
     @product = Product.find(@params['id'])
-    if !@product.destroy
-        render :action => :cannot_edit
-    else
-        redirect :action => :index
-    end    
+    @product.destroy
+    redirect :action => :index
   end
 end
