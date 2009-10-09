@@ -39,8 +39,8 @@ class ProductController < Rho::RhoController
     @product = Product.find(@params['id'])
     @product.update_attributes(@params['product'])
     
-    @product.sku = 555
-    @product.save
+    #@product.sku = 555
+    #@product.save
     
     redirect :action => :index
   end
