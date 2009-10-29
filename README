@@ -1,0 +1,17 @@
+rhostore is a simple example application used to demonstrate and test sync.
+
+Install rhodes.
+
+gem install rhodes
+
+To use rhostore first go to http://dev.rhosync.rhohub.com and create a user account. Subscribe this user to the Store application. dev.rhosync.rhohub.com is the rhosync server that the client will use by default. You can change this by editing rhoconfig.txt file and setting it to your own rhosync server if you want.
+
+This application syncs data with http://rhostore.heroku.com. To keep things simple, you do not need a login to access that site. 
+
+To build this application, for example, on BlackBerry type: rake run:bb, or rake run:iphone for iPhone.
+
+Go to Settings -> Options and login as the user you created on http://dev.rhosync.rhohub.com. This will trigger a sync and pull down all the products from http://rhostore.heroku.com/products/. Click on Products to see the list on the device.
+
+
+
+
