@@ -32,7 +32,7 @@ class CustomerController < Rho::RhoController
     @customer.save
     
     # immediately send to the server
-		SyncEngine::dosync(false)
+		SyncEngine.dosync_source(@customer.source_id)
 	
     redirect :action => :index
   end

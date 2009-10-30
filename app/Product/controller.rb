@@ -33,7 +33,7 @@ class ProductController < Rho::RhoController
     @product.save
 	
 		# immediately send to the server
-		SyncEngine::dosync(false)
+		SyncEngine.dosync_source(@product.source_id)
 	
     redirect :action => :index
   end
@@ -44,7 +44,7 @@ class ProductController < Rho::RhoController
     @product.update_attributes(@params['product'])
     
     # immediately send to the server
-		SyncEngine::dosync(false)
+		SyncEngine.dosync_source(@product.source_id)
 		
     redirect :action => :index
   end
@@ -55,7 +55,7 @@ class ProductController < Rho::RhoController
     @product.destroy
     
     # immediately send to the server
-		SyncEngine::dosync(false)
+		SyncEngine.dosync_source(@product.source_id)
 		
     redirect :action => :index
   end

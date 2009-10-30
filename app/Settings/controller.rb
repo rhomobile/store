@@ -71,9 +71,17 @@ class SettingsController < Rho::RhoController
     redirect :action => :index, :query => {:msg => @msg}
   end
   
-  def sync_object_notify
-    puts 'sync_object_notify: ' + @params.inspect    
-    WebView.refresh
+  def sync_notify
+  	puts 'sync_object_notify: ' + @params.inspect  
+  	# refresh the current page
+  	status = @params['status'] ? @params['status'] : ""
+    if status == "ok" 	
+    	# need to re-register
+    	Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
+    	Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
+    
+	    WebView.refresh
+	  end
   end
   
 end
