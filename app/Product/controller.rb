@@ -31,6 +31,10 @@ class ProductController < Rho::RhoController
   def create
     @product = Product.new(@params['product'])
     @product.save
+	
+		# immediately send to the server
+		SyncEngine::dosync(false)
+	
     redirect :action => :index
   end
 
@@ -39,9 +43,9 @@ class ProductController < Rho::RhoController
     @product = Product.find(@params['id'])
     @product.update_attributes(@params['product'])
     
-    #@product.sku = 555
-    #@product.save
-    
+    # immediately send to the server
+		SyncEngine::dosync(false)
+		
     redirect :action => :index
   end
 
@@ -49,6 +53,10 @@ class ProductController < Rho::RhoController
   def delete
     @product = Product.find(@params['id'])
     @product.destroy
+    
+    # immediately send to the server
+		SyncEngine::dosync(false)
+		
     redirect :action => :index
   end
 end

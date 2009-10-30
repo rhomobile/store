@@ -1,9 +1,16 @@
 <div class="toolbar">
-	<h1 id="pageTitle">
-		Store
-	</h1>
+	<h1 id="pageTitle">Rho Store</h1>
 </div>
 
 <ul id="home" selected="true" title="Store">
+	<% if SyncEngine::logged_in > 0 %>		
+
 	<li><a href="Product">Products</a></li>
+	<li><a href="Customer">Customers</a></li>
+
+	<% else %>
+
+	<li><a href="Settings/login">Login<li>
+
+	<% end %>	
 </ul>
