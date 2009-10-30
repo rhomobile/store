@@ -7,7 +7,7 @@ Install rhodes.
 
 gem install rhodes
 
-To use rhostore first go to http://dev.rhosync.rhohub.com and sign up for an account. Subscribe yourwself to the Store application. dev.rhosync.rhohub.com is the rhosync server that the client will use by default. You can change this by editing rhoconfig.txt file and setting it to your own rhosync server if you want. See below for setup instructions.
+To use rhostore first go to http://dev.rhosync.rhohub.com and sign up for an account. Subscribe yourself to the Store application. dev.rhosync.rhohub.com is the rhosync server that the client will use by default. You can change this by editing rhoconfig.txt file and setting it to your own rhosync server if you want. See below for setup instructions.
 
 This application syncs data with http://rhostore.heroku.com. To keep things simple, you do not need a login to access that site. 
 
