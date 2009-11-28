@@ -4,6 +4,8 @@
 	</h1>
 </div>
 
+<p>Last Product sync time: <%= ::Rhom::RhomSource.find(Product.get_source_id).last_updated.strftime("%m/%d/%Y, %I:%M%p") %></p>
+
 <ul id="settings" selected="true" title="Settings">
 	<% if @msg %><li style="color:#ff0000" align="center"><%=@msg%></li><% end %>
 	<li>Client ID: <br/><span style="font-size: 60%"><%=Rhom::Rhom::client_id%></span></li>

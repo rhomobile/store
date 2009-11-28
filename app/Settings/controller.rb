@@ -1,11 +1,14 @@
 require 'rho'
 require 'rho/rhocontroller'
 require 'rho/rhoerror'
+require 'rhom/rhom_source'
+require 'time'
 
 class SettingsController < Rho::RhoController
   
   def index
     @msg = @params['msg']
+
     render
   end
 
@@ -14,6 +17,10 @@ class SettingsController < Rho::RhoController
     render :action => :login
   end
 
+  def become_active_callback
+    puts 'become_active_callback' + @params.inspect
+  end
+  
   def login_callback
     err_code = @params['error_code'].to_i
     if err_code == 0

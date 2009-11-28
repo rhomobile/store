@@ -1,3 +1,3 @@
 require 'rho'
 
-Rho::RhoConfig::add_source("Product", {"url"=>"Product", "source_id"=>5800})
+Rho::RhoConfig::add_source("Product", {"url"=>"Product", "priority"=>0})
