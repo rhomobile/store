@@ -1,7 +1,9 @@
+
 unless File.exists? "build.yml"
   puts "Cannot find build.yml"
   exit 1
 end
+
 
 $app_config = YAML::load_file("build.yml")
 $app_path = File.expand_path(File.dirname(__FILE__))
@@ -22,3 +24,4 @@ unless File.exists? rakefilepath
 end
 
 load rakefilepath
+

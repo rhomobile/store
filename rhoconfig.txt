@@ -22,7 +22,7 @@ KeepTrackOfLastVisitedPage = 0
 LastVisitedPage = ''
 
 # Sync server url.  This must be the full path to your sources.  For example: http://rhomobile.rhohub.com/apps/SugarCRM/sources/
-#syncserver = 'http://dev.rhosync.rhohub.com/apps/Store/sources/'
+syncserver = 'http://dev.rhosync.rhohub.com/apps/Store/sources/'
 
 # local testing, use your IP address and not 127.0.0.1 because blackberry has issues with that.....
-syncserver = 'http://192.168.1.220:3000/apps/Store/sources/'
+#syncserver = 'http://127.0.0.1:3000/apps/Store/sources/'
