@@ -6,9 +6,6 @@ class Customer < SourceAdapter
     super(source,credential)
   end
  
-  def login
-  end
- 
   def query(conditions=nil,limit=nil,offset=nil)
     # backend for this source adapter implements condtions
     
@@ -74,7 +71,7 @@ class Customer < SourceAdapter
  
   def create(name_value_list)
     attrvals={}
-    name_value_list.each { |nv| attrvals["customer["+nv["name"]+"]"]=nv["value"]} # convert name-value list to hash
+    name_value_list.each { |key,value| attrvals["customer["+key.to_s+"]"]=value.to_s } # convert name-value list to hash
     res = Net::HTTP.post_form(URI.parse("http://rhostore.heroku.com/customers"),attrvals)
 
     # after create we are redirected to the new record. We need to get the id of that record and return it as part of create
@@ -90,31 +87,21 @@ class Customer < SourceAdapter
   end
  
   def update(name_value_list) 
-    obj_id = name_value_list.find { |item| item['name'] == 'id' }
-    name_value_list.delete(obj_id)
-
-    params={}     
-    name_value_list.each {|nv|params[nv["name"]]=nv["value"]}
+    obj_id = name_value_list['id']
+    name_value_list.delete('id')
 
     uri = URI.parse('http://rhostore.heroku.com')
     Net::HTTP.start(uri.host) do |http|
-      request = Net::HTTP::Put.new(uri.path + "/customers/#{obj_id['value']}.xml", {'Content-type' => 'application/xml'})
-      request.body = xml_template(params)
+      request = Net::HTTP::Put.new(uri.path + "/customers/#{obj_id}.xml", {'Content-type' => 'application/xml'})
+      request.body = xml_template(name_value_list)
       response = http.request(request)
     end
   end
  
   def delete(name_value_list)
-    attrvals={}     
-    name_value_list.each {|nv|attrvals["product["+nv["name"]+"]"]=nv["value"]}
     http=Net::HTTP.new('rhostore.heroku.com',80)
-    path="/customers/#{attrvals['id']}"
+    path="/customers/#{name_value_list['id']}"
     resp=http.delete(path)
-  end
- 
-  def logoff
-    #TODO: write some code here if applicable
-    # no need to do a raise here
   end
   
   protected
