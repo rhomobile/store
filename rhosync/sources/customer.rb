@@ -9,23 +9,23 @@ class Customer < SourceAdapter
   def query(conditions=nil,limit=nil,offset=nil)
     # backend for this source adapter implements condtions
     
-    logger = Logger.new('log/store.log', File::WRONLY | File::APPEND)
-    logger.debug "query called with conditions=#{conditions} limit=#{limit} and offset=#{offset}"
+    #logger = Logger.new('log/store.log', File::WRONLY | File::APPEND)
+    puts "query called with conditions=#{conditions} limit=#{limit} and offset=#{offset}"
     
     parsed=nil
     conditions=nil if conditions and conditions.size<1
     url="http://rhostore.heroku.com/customers.json"
     url=url+"?#{hashtourl(conditions)}" if conditions
-    logger.debug "Searching with #{url}"
+    puts "Searching with #{url}"
     open(url) do |f|
       parsed=JSON.parse(f.read)
     end
     
-    logger.debug parsed.inspect.to_s
+    puts parsed.inspect.to_s
     @result={}
     
     parsed.each { |item|@result[item["customer"]["id"].to_s]=item["customer"] } if parsed
-    logger.debug @result.inspect.to_s
+    puts @result.inspect.to_s
     
     @result
   end
