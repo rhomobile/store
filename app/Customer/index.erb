@@ -6,9 +6,15 @@
 
 <ul id="customers" title="Customers" selected="true">
   	<a class="button right_button" href="Customer/new" target="_self">New</a>
+  	
+  	<form method="POST" action="<%=url_for(:action => :search)%>">
+      <input type="text" name="query" />
+      <input type="submit" value="Search" />
+    </form>
 	<%@customers.each do |x|%>
 	
 	<li><%=link_to "#{x.first}", :action => :show, :id => x.object%></li>
 	
 	<%end%>
+	<li><%=link_to "Search", :action => :search%></li>
 </ul>

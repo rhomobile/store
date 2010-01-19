@@ -10,7 +10,7 @@ class Customer < SourceAdapter
     # backend for this source adapter implements condtions
     
     #logger = Logger.new('log/store.log', File::WRONLY | File::APPEND)
-    puts "query called with conditions=#{conditions} limit=#{limit} and offset=#{offset}"
+    puts "query called with conditions=#{conditions.inspect} limit=#{limit.inspect} and offset=#{offset.inspect}"
     
     parsed=nil
     conditions=nil if conditions and conditions.size<1
@@ -28,6 +28,10 @@ class Customer < SourceAdapter
     puts @result.inspect.to_s
     
     @result
+  end
+  
+  def search(params)
+    query(params)
   end
   
   def hashtourl(conditions)
