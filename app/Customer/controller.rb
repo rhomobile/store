@@ -75,15 +75,16 @@ class CustomerController < Rho::RhoController
       :search_params => { :first => @params['query'] },
       :callback => '/app/Customer/search_callback',
       :callback_param => query_to_s(:search_params => @params['query'], :page => page))
+    render :action => :ok
   end
   
   def search_callback
     status = @params['status']
     if (status && status == 'ok')
-      WebView.navigate ( url_for :action => :show_page, :query => {:query => @params['?search_params'], :page => @params['page']} )
+      WebView.navigate ( url_for :action => :show_page, 
+        :query => {:query => @params['?search_params'], 
+        :page => @params['page']} )
     end
-    #TODO: show error page if status == 'error'
-    render :action => :ok
   end
   
   def ok
