@@ -1,3 +1,3 @@
 require 'rho'
 
-Rho::RhoConfig::add_source("Customer", {"sync"=>true, "priority"=>1})
+Rho::RhoConfig::add_source("Customer", {"source_id"=>1, "sync_type"=>'none', "priority"=>1})
