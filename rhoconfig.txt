@@ -11,10 +11,10 @@ rhobundle_zip_url = ''
 rhobundle_zip_pwd = nil
 
 # option for blackberry
-use_persistent_storage=1
+use_persistent_storage=0
 
 # Rhodes runtime properties
-MinSeverity  = 0
+MinSeverity  = 1
 LogToOutput = 1
 LogCategories = *
 ExcludeLogCategories =
@@ -22,7 +22,14 @@ KeepTrackOfLastVisitedPage = 0
 LastVisitedPage = ''
 
 # Sync server url.  This must be the full path to your sources.  For example: http://rhomobile.rhohub.com/apps/SugarCRM/sources/
-syncserver = 'http://dev.rhosync.rhohub.com/apps/Store/sources/'
+#syncserver = 'http://dev.rhosync.rhohub.com/apps/Store/sources/'
+syncserver = 'http://rhosyncnew.staging.rhohub.com/apps/store/'
 
 # local testing, use your IP address and not 127.0.0.1 because blackberry has issues with that.....
-#syncserver = 'http://127.0.0.1:3000/apps/Store/sources/'
+#syncserver = 'http://192.168.0.185:9292/apps/store/'
+#syncserver = 'http://127.0.0.1:9292/apps/store/'
+
+sync_poll_interval=0
+
+logserver = 'http://logserver.staging.rhohub.com/log_handler'
+logname=store
