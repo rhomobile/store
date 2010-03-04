@@ -21,11 +21,16 @@ class SettingsController < Rho::RhoController
     puts 'become_active_callback' + @params.inspect
   end
   
+  def wait_sync
+    render 
+  end
+  
   def login_callback
     err_code = @params['error_code'].to_i
     if err_code == 0
       # run sync if we were successful
-      WebView.navigate Rho::RhoConfig.start_path
+      #WebView.navigate Rho::RhoConfig.start_path
+      WebView.navigate ( url_for :action => :wait_sync )
       SyncEngine.dosync
     else
       if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
@@ -82,13 +87,15 @@ class SettingsController < Rho::RhoController
   	puts 'sync_object_notify: ' + @params.inspect  
   	# refresh the current page
   	status = @params['status'] ? @params['status'] : ""
-    if status == "ok" 	
+    if status != "in_progress" 	
     	# need to re-register
-    	Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
-    	Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
-    
-	    WebView.refresh
-	  end
+    	#Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
+    	#Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
+        SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
+        
+        WebView.navigate Rho::RhoConfig.start_path
+#	    WebView.refresh
+	end
   end
   
 end
