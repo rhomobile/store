@@ -82,9 +82,15 @@ class SettingsController < Rho::RhoController
     @msg =  "Sync has been triggered."
     redirect :action => :index, :query => {:msg => @msg}
   end
+
+  def push_notify
+  	puts 'push_notify: ' + @params.inspect  
+  	
+  	"rho_push"
+  end
   
   def sync_notify
-  	puts 'sync_object_notify: ' + @params.inspect  
+  	puts 'sync_notify: ' + @params.inspect  
   	# refresh the current page
   	status = @params['status'] ? @params['status'] : ""
     if status != "in_progress" 	
@@ -92,8 +98,21 @@ class SettingsController < Rho::RhoController
     	#Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
     	#Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
         SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
-        
-        WebView.navigate Rho::RhoConfig.start_path
+       
+        err_code = @params['error_code'].to_i
+        if err_code == 0
+            WebView.navigate Rho::RhoConfig.start_path
+        else
+          if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
+            @msg = @params['error_message']
+          end
+            
+          if !@msg || @msg.length == 0   
+            @msg = Rho::RhoError.new(err_code).message
+          end
+          
+          WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
+        end    
 #	    WebView.refresh
 	end
   end
