@@ -2,7 +2,7 @@ require 'rho'
 
 product_schema = {
     #:columns =>['brand','created_at','name','price','quantity','sku','updated_at']
-    :sql => "CREATE TABLE Product ( 
+    'sql' => "CREATE TABLE Product ( 
         brand varchar default NULL,
         created_at varchar default NULL,
         name varchar default NULL,
