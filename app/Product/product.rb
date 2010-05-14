@@ -1,5 +1,3 @@
-require 'rhom'
-
 class Product
     include Rhom::FixedSchema
 
