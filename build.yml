@@ -1,12 +1,12 @@
 --- 
 name: rhostore
 bbver: 4.6
-sdk: /Users/lars/Dev/code/rhomobile/rhodes
+sdk: /Library/Ruby/Gems/1.8/gems/rhodes-2.0.0.beta9
 applog: rholog.txt
 version: 1.0
 vendor: rhomobile
 iphone: 
   sdk: iphonesimulator3.0
-  entitlements: 
   codesignidentity: 
+  entitlements: 
   configuration: Debug

@@ -21,14 +21,9 @@ ExcludeLogCategories =
 KeepTrackOfLastVisitedPage = 0 
 LastVisitedPage = ''
 
-# Sync server url.  This must be the full path to your sources.  For example: http://rhomobile.rhohub.com/apps/SugarCRM/sources/
-#syncserver = 'http://dev.rhosync.rhohub.com/apps/Store/sources/'
-#syncserver = 'http://rhosyncnew.staging.rhohub.com/apps/store/'
-syncserver = 'http://rhosyncnew.staging.rhohub.com/apps/store_server'
-
-# local testing, use your IP address and not 127.0.0.1 because blackberry has issues with that.....
-#syncserver = 'http://192.168.0.185:9292/apps/store/'
-#syncserver = 'http://127.0.0.1:9292/apps/store/'
+# RhoSync server url, use your IP address and not 127.0.0.1 because blackberry has issues with that.....
+#syncserver = 'http://localhost:9292/application'
+syncserver = 'http://warm-flower-88.heroku.com/application'
 
 sync_poll_interval=0
 
