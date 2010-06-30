@@ -3,11 +3,17 @@ Rhostore
 a simple example application used to demonstrate and test sync
 --------------------
 
-Install rhodes.
+Install rhodes:
 
-gem install rhodes
+  gem install rhodes
 
-To use rhostore first go to http://dev.rhosync.rhohub.com and sign up for an account. Subscribe yourself to the Store application. dev.rhosync.rhohub.com is the rhosync server that the client will use by default. You can change this by editing rhoconfig.txt file and setting it to your own rhosync server if you want. See below for setup instructions.
+Install rhosync: http://wiki.rhomobile.com/index.php/RhoSync
+
+Download and run store-server: http://github.com/rhomobile/store-server
+
+Now, edit the rhoconfig.txt file in this application. Set "syncserver" to the correct IP address for your running store-server. In the example below, the store-server is running at 192.168.1.220 on port 9292.
+
+syncserver = 'http://192.168.1.220:9292/application/'
 
 This application syncs data with http://rhostore.heroku.com. To keep things simple, you do not need a login to access that site. 
 
@@ -15,36 +21,3 @@ To build this application, for example, on BlackBerry type: rake run:bb, or rake
 
 Launch the application and click on Login from the main page. You can also access the Login screen from Settings -> Options.
 
-Login as the user you created on http://dev.rhosync.rhohub.com. This will trigger a sync and pull down all the customer and products from http://rhostore.heroku.com/. 
-
-
-Syncing rhostore to your own rhosync server 
--------------------------------------------
-
-You can sync this application with http://dev.rhosync.rhohub.com without setting up your own rhosync server. These instructions are for people who want to sync to their own server and learm more about the sync process.
-
-Install rhosync. 
-
-By default rhosync includes the source adapters need for the store application. You can find the code in vendor/sync/Store subdirecty in rhosync. You need only to configure rhosync to use these adapters to enable rhostore sync.
-
-Create (register) a new user in rhosync.
-
-Login and create an application called "Store" from the main page in rhosync. You will become the admin of the application by default.
-
-Create two sources. Below are the exact values you should enter. Leave other fields blank or default values.
-
-Source name: Customer
-Adapter class: Customer
-Url to connect to: http://rhostore.heroku.com/customers.json
-
-Source name: Product
-Adapter class: ProductAdapter
-Url to connect to: http://rhostore.heroku.com/products.json
-
-Subscribe yourself to the Store application from the main page in rhosync.
-
-Now, edit the rhoconfig.txt file in this application. Set "syncserver" to the correct IP address for your new rhosync server. In the example below, the rhosync server is running at 192.168.1.220 on port 3000.
-
-syncserver = 'http://192.168.1.220:3000/apps/Store/sources/'
-
-Rebuild and install the rhostore client application. If you have already built and installed it with a previous value for syncserver, you should remove the application completely.
