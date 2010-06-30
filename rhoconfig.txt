@@ -22,10 +22,9 @@ KeepTrackOfLastVisitedPage = 0
 LastVisitedPage = ''
 
 # RhoSync server url, use your IP address and not 127.0.0.1 because blackberry has issues with that.....
-#syncserver = 'http://localhost:9292/application'
-syncserver = 'http://warm-flower-88.heroku.com/application'
+syncserver = 'http://localhost:9292/application'
 
 sync_poll_interval=0
 
-logserver = 'http://logserver.staging.rhohub.com/log_handler'
+logserver = 'http://rhologs.heroku.com/'
 logname=store
