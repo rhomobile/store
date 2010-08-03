@@ -5,16 +5,23 @@
 <div class="toolbar">
   <a class="button leftButton" href="<%= url_for :controller => :Settings, :action => :do_sync %>">Sync</a>
   <% if SyncEngine::logged_in > 0 %>
-  <a class="button" href="<%= url_for :controller => :Settings, :action => :logout %>">Logout</a>
+      <a class="button" href="<%= url_for :controller => :Settings, :action => :logout %>">Logout</a>
   <% else %>
-  <a class="button" href="<%= url_for :controller => :Settings, :action => :login %>">Login</a>
+      <a class="button" href="<%= url_for :controller => :Settings, :action => :login %>">Login</a>
   <% end %>
 </div>
 
 <div class="content">
   <ul>
-    <li>
-      <a href="#">Add link here...</a>
-    </li>
+    <% if SyncEngine::logged_in > 0 %>
+
+        <li><a href="/app/Product">Products</a></li>
+        <li><a href="/app/Customer">Customers</a></li>
+
+    <% else %>
+
+        <li><a href="/app/Settings/login">Login</a></li>
+
+    <% end %>
   </ul>
 </div>

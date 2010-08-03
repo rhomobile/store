@@ -2,9 +2,5 @@
 # You can add more methods here
 class Customer
   include Rhom::PropertyBag
-
-  # Uncomment the following line to enable sync with Customer.
-  # enable :sync
-
-  #add model specifc code here
+  enable :sync
 end
