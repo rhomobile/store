@@ -2,21 +2,15 @@ require 'rho/rhoapplication'
 
 class AppApplication < Rho::RhoApplication
   def initialize
-    # @tabs = [{ :label => "Start Page", :icon => "/public/images/tabs/home_btn.png", :action => '/app', :reload => true }, 
-    #          { :label => "Options", :action => '/app/Settings', :icon => "/public/images/tabs/gears.png", :reload => true }]
+    # Tab items are loaded left->right, @tabs[0] is leftmost tab in the tab-bar
+    # Super must be called *after* settings @tabs!
+    @tabs = nil
+    @@tabbar = nil
+
     super
-    
-    SyncEngine::set_objectnotify_url("/app/Settings/sync_notify")
-    
-    # we want to be notified whenever either of these sources is synced
-    #Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
-    #Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
-    SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
-    
-    #System.set_push_notification("/app/Settings/push_notify", '')
-  end
-  
-  def on_activate_app
-    puts "on_activate_app"
+
+    # Uncomment to set sync notification callback to /app/Settings/sync_notify.
+    # SyncEngine::set_objectnotify_url("/app/Settings/sync_notify")
+    # SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
   end
 end

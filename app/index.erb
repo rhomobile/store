@@ -1,16 +1,20 @@
-<div class="toolbar">
-	<h1 id="pageTitle">Rho Store</h1>
+<div class="pageTitle">
+  <h1>Store</h1>
 </div>
 
-<ul id="home" selected="true" title="Store">
-	<% if SyncEngine::logged_in > 0 %>		
+<div class="toolbar">
+  <a class="button leftButton" href="<%= url_for :controller => :Settings, :action => :do_sync %>">Sync</a>
+  <% if SyncEngine::logged_in > 0 %>
+  <a class="button" href="<%= url_for :controller => :Settings, :action => :logout %>">Logout</a>
+  <% else %>
+  <a class="button" href="<%= url_for :controller => :Settings, :action => :login %>">Login</a>
+  <% end %>
+</div>
 
-	<li><a href="Product">Products</a></li>
-	<li><a href="Customer">Customers</a></li>
-
-	<% else %>
-
-	<li><a href="Settings/login">Login<li>
-
-	<% end %>	
-</ul>
+<div class="content">
+  <ul>
+    <li>
+      <a href="#">Add link here...</a>
+    </li>
+  </ul>
+</div>

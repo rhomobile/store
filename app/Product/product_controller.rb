@@ -1,18 +1,23 @@
 require 'rho/rhocontroller'
+require 'helpers/browser_helper'
 
 class ProductController < Rho::RhoController
+  include BrowserHelper
 
   #GET /Product
   def index
     @products = Product.find(:all)
-    add_objectnotify(@products)
     render
   end
 
   # GET /Product/{1}
   def show
     @product = Product.find(@params['id'])
-    render :action => :show
+    if @product
+      render :action => :show
+    else
+      redirect :action => :index
+    end
   end
 
   # GET /Product/new
@@ -24,39 +29,30 @@ class ProductController < Rho::RhoController
   # GET /Product/{1}/edit
   def edit
     @product = Product.find(@params['id'])
-    render :action => :edit
+    if @product
+      render :action => :edit
+    else
+      redirect :action => :index
+    end
   end
 
   # POST /Product/create
   def create
-    @product = Product.new(@params['product'])
-    @product.save
-	
-		# immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
-	
+    @product = Product.create(@params['product'])
     redirect :action => :index
   end
 
   # POST /Product/{1}/update
   def update
     @product = Product.find(@params['id'])
-    @product.update_attributes(@params['product'])
-    
-    # immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
-		
+    @product.update_attributes(@params['product']) if @product
     redirect :action => :index
   end
 
   # POST /Product/{1}/delete
   def delete
     @product = Product.find(@params['id'])
-    @product.destroy
-    
-    # immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
-		
+    @product.destroy if @product
     redirect :action => :index
   end
 end

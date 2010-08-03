@@ -1,57 +1,57 @@
-<div class="toolbar">
-	<h1 id="pageTitle">
-		New Customer
-	</h1>
+<div class="pageTitle">
+  <h1>New <%= @customer.title %></h1>
 </div>
 
-<form title="New Customer" 
-	  class="panel"
-	  id="customer_new_form" 
-	  method="POST" 
-	  action="<%=url_for(:action => :create)%>" selected="true">
-	<fieldset>
-		<input type="hidden" name="id" value="<%=@customer.object%>"/>
-		
-		  <div class="row">
-			  <label>First: </label>
-			  <input type="text" name="customer[first]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Last: </label>
-			  <input type="text" name="customer[last]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Email: </label>
-			  <input type="text" name="customer[email]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Phone: </label>
-			  <input type="text" name="customer[phone]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Address: </label>
-			  <input type="text" name="customer[address]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>City: </label>
-			  <input type="text" name="customer[city]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>State: </label>
-			  <input type="text" name="customer[state]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Zip: </label>
-			  <input type="text" name="customer[zip]"/>
-		  </div>
-		
-	</fieldset>
-	<input type="submit" value="Create"/>
-</form>
+<div class="toolbar">
+  <a class="cancel" href="<%= url_for :action => :index %>">Cancel</a>
+</div>
+
+<div class="content">
+  <form method="POST" action="<%= url_for :action => :create %>">
+    <input type="hidden" name="id" value="<%= @customer.object %>"/>
+    <ul>
+      
+          <li>
+            <label for="customer[first]">First</label>
+            <input type="text" name="customer[first]" <%= placeholder("First") %> />
+          </li>
+      
+          <li>
+            <label for="customer[last]">Last</label>
+            <input type="text" name="customer[last]" <%= placeholder("Last") %> />
+          </li>
+      
+          <li>
+            <label for="customer[email]">Email</label>
+            <input type="text" name="customer[email]" <%= placeholder("Email") %> />
+          </li>
+      
+          <li>
+            <label for="customer[phone]">Phone</label>
+            <input type="text" name="customer[phone]" <%= placeholder("Phone") %> />
+          </li>
+      
+          <li>
+            <label for="customer[address]">Address</label>
+            <input type="text" name="customer[address]" <%= placeholder("Address") %> />
+          </li>
+      
+          <li>
+            <label for="customer[city]">City</label>
+            <input type="text" name="customer[city]" <%= placeholder("City") %> />
+          </li>
+      
+          <li>
+            <label for="customer[state]">State</label>
+            <input type="text" name="customer[state]" <%= placeholder("State") %> />
+          </li>
+      
+          <li>
+            <label for="customer[zip]">Zip</label>
+            <input type="text" name="customer[zip]" <%= placeholder("Zip") %> />
+          </li>
+      
+    </ul>
+    <input type="submit" class="standardButton" value="Create"/>
+  </form>
+</div>
