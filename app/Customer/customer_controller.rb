@@ -1,7 +1,9 @@
 require 'rho/rhocontroller'
+require 'helpers/application_helper'
 require 'helpers/browser_helper'
 
 class CustomerController < Rho::RhoController
+  include ApplicationHelper
   include BrowserHelper
 
   #GET /Customer
@@ -38,21 +40,52 @@ class CustomerController < Rho::RhoController
 
   # POST /Customer/create
   def create
-    @customer = Customer.create(@params['customer'])
+    @customer = Customer.new(@params['customer'])
+    @customer.save
+
+    # immediately send to the server
+    SyncEngine.dosync_source(@customer.source_id)
+
     redirect :action => :index
   end
 
   # POST /Customer/{1}/update
   def update
     @customer = Customer.find(@params['id'])
-    @customer.update_attributes(@params['customer']) if @customer
+    @customer.update_attributes(@params['customer'])
+
+    # immediately send to the server
+    SyncEngine::dosync(false)
+
     redirect :action => :index
   end
 
   # POST /Customer/{1}/delete
   def delete
     @customer = Customer.find(@params['id'])
-    @customer.destroy if @customer
+    @customer.destroy
+
+    # immediately send to the server
+    SyncEngine::dosync(false)
     redirect :action => :index
   end
+
+  def search
+    Customer.search(:from => 'search',
+                    :search_params => {:first => @params['query']},
+                    :callback => '/app/Customer/search_callback',
+                    :callback_param => "first=#{@params['query']}")
+    @response['headers']['Wait-Page'] = 'true'
+    render :action => :searching
+  end
+
+  def search_callback
+    if @params['status'] == 'ok'
+      @customers = Customer.find(:all, :conditions => {:first => @params['first']})
+      render_transition :action => :search
+    else
+      WebView.navigate url_for :action => :index
+    end
+  end
+
 end

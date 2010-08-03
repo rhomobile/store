@@ -1,5 +1,5 @@
 <div class="pageTitle">
-  <h1>Customers</h1>
+  <h1>Search</h1>
 </div>
 
 <div class="toolbar">
@@ -11,20 +11,19 @@
     <ul>
       <li>
         <label for="query">Query</label>
-        <input type="text" name="query" <%= placeholder( "Query" ) %>/>
+        <input type="text" name="query" <%= placeholder("Query") %>/>
       </li>
     </ul>
     <input type="submit" class="standardButton" value="Search"/>
   </form>
-  <ul>
-    <% @customers.each do |customer| %>
-
-        <li>
-          <a href="<%= url_for :action => :show, :id => customer.object %>">
-            <%= customer.first %>
-          </a>
-        </li>
-
-    <% end %>
-  </ul>
+  <div>
+    <%= "Found #{@customers.length} customer(s)." %>
+  </div>
+  <% if !@customers.empty? %>
+      <ul>
+        <% @customers.each do |x| %>
+            <li><%= link_to "#{x.first}", {:action => :show, :id => x.object} %></li>
+        <% end %>
+      </ul>
+  <% end %>
 </div>
