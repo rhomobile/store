@@ -106,10 +106,9 @@ class SettingsController < Rho::RhoController
         @msg = rho_error.message() unless @msg && @msg.length > 0   
 
         if  rho_error.unknown_client?(@params['error_message'])
-            Rhom::Rhom.database_fullclient_reset_and_logout
-            WebView.navigate ( url_for :action => :login, :query => {:msg => "Server has been reset."} )                
+            Rhom::Rhom.database_client_reset
+            SyncEngine.dosync
         elsif err_code == Rho::RhoError::ERR_UNATHORIZED
-            Rhom::Rhom.database_fullclient_reset_and_logout
             WebView.navigate ( url_for :action => :login, :query => {:msg => "Server credentials are expired"} )                
         else
             WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
