@@ -28,11 +28,10 @@ class CustomerController < Rho::RhoController
 
   # POST /Customer/create
   def create
-    @customer = Customer.new(@params['customer'])
-    @customer.save
+    @customer = Customer.create(@params['customer'])
     
     # immediately send to the server
-		SyncEngine.dosync_source(@customer.source_id)
+	Customer.sync()
 	
     redirect :action => :index
   end
@@ -43,7 +42,7 @@ class CustomerController < Rho::RhoController
     @customer.update_attributes(@params['customer'])
     
     # immediately send to the server
-		SyncEngine::dosync(false)
+	Customer.sync()
 		
     redirect :action => :index
   end
@@ -54,7 +53,7 @@ class CustomerController < Rho::RhoController
     @customer.destroy
     
     # immediately send to the server
-		SyncEngine::dosync(false)
+	Customer.sync()
     redirect :action => :index
   end
   

@@ -93,27 +93,27 @@ class SettingsController < Rho::RhoController
   	puts 'sync_notify: ' + @params.inspect  
   	# refresh the current page
   	status = @params['status'] ? @params['status'] : ""
-    if status != "in_progress" 	
-    	# need to re-register
-    	#Product.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Product")
-    	#Customer.set_notification("/app/Settings/sync_notify", "fixed sync_notify for Customer")
-        SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
-       
+  	
+  	if status == "in_progress" 	
+  	    #do nothing
+  	elsif status == "ok"
+        WebView.navigate Rho::RhoConfig.start_path
+  	elsif status == "error"
         err_code = @params['error_code'].to_i
-        if err_code == 0
-            WebView.navigate Rho::RhoConfig.start_path
+        rho_error = Rho::RhoError.new(err_code)
+        
+        @msg = @params['error_message'] if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
+        @msg = rho_error.message() unless @msg && @msg.length > 0   
+
+        if  rho_error.unknown_client?(@params['error_message'])
+            Rhom::Rhom.database_fullclient_reset_and_logout
+            WebView.navigate ( url_for :action => :login, :query => {:msg => "Server has been reset."} )                
+        elsif err_code == Rho::RhoError::ERR_UNATHORIZED
+            Rhom::Rhom.database_fullclient_reset_and_logout
+            WebView.navigate ( url_for :action => :login, :query => {:msg => "Server credentials are expired"} )                
         else
-          if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
-            @msg = @params['error_message']
-          end
-            
-          if !@msg || @msg.length == 0   
-            @msg = Rho::RhoError.new(err_code).message
-          end
-          
-          WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
+            WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
         end    
-#	    WebView.refresh
 	end
   end
   

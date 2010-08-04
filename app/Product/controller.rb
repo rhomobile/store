@@ -5,6 +5,7 @@ class ProductController < Rho::RhoController
   #GET /Product
   def index
     @products = Product.find(:all)
+    
     add_objectnotify(@products)
     render
   end
@@ -29,11 +30,10 @@ class ProductController < Rho::RhoController
 
   # POST /Product/create
   def create
-    @product = Product.new(@params['product'])
-    @product.save
+    @product = Product.create(@params['product'])
 	
 		# immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
+	Product.sync()
 	
     redirect :action => :index
   end
@@ -44,7 +44,7 @@ class ProductController < Rho::RhoController
     @product.update_attributes(@params['product'])
     
     # immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
+	Product.sync()
 		
     redirect :action => :index
   end
@@ -55,7 +55,7 @@ class ProductController < Rho::RhoController
     @product.destroy
     
     # immediately send to the server
-		SyncEngine.dosync_source(@product.source_id)
+	Product.sync()
 		
     redirect :action => :index
   end
