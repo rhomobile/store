@@ -98,7 +98,7 @@ class ProductController < Rho::RhoController
     if @params['status'] == 'ok'
       @product = Product.new(@params['body']['product'])
       @product.object = @product.id
-      if @caller_request['headers']['Jqtouch'] == 'true'
+      if @caller_request['headers']['Transition-Enabled'] == 'true'
         render_transition :action => :show
       else
         WebView.navigate url_for :action => :show, :id => @product.object
@@ -118,7 +118,7 @@ class ProductController < Rho::RhoController
 
     @products = Product.find(:all)
     add_objectnotify(@products)
-    if @caller_request['headers']['Jqtouch'] == 'true'
+    if @caller_request['headers']['Transition-Enabled'] == 'true'
       render_transition :action => :index
     else
       WebView.navigate url_for :action => :index
