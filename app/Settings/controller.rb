@@ -79,27 +79,29 @@ class SettingsController < Rho::RhoController
   end
 
   def sync_notify
-    puts 'sync_notify: ' + @params.inspect
-    # refresh the current page
-    status = @params['status'] ? @params['status'] : ""
-    if status != "in_progress"
-      # need to re-register
-      SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
-
-      err_code = @params['error_code'].to_i
-      if err_code == 0
+  	puts 'sync_notify: ' + @params.inspect  
+  	# refresh the current page
+  	status = @params['status'] ? @params['status'] : ""
+  	
+  	if status == "in_progress" 	
+  	    #do nothing
+  	elsif status == "ok"
         WebView.navigate Rho::RhoConfig.start_path
-      else
-        if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
-          @msg = @params['error_message']
-        end
+  	elsif status == "error"
+        err_code = @params['error_code'].to_i
+        rho_error = Rho::RhoError.new(err_code)
+        
+        @msg = @params['error_message'] if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
+        @msg = rho_error.message() unless @msg && @msg.length > 0   
 
-        if !@msg || @msg.length == 0
-          @msg = Rho::RhoError.new(err_code).message
-        end
-
-        WebView.navigate (url_for :action => :err_sync, :query => {:msg => @msg})
-      end
-    end
+        if  rho_error.unknown_client?(@params['error_message'])
+            Rhom::Rhom.database_client_reset
+            SyncEngine.dosync
+        elsif err_code == Rho::RhoError::ERR_UNATHORIZED
+            WebView.navigate ( url_for :action => :login, :query => {:msg => "Server credentials are expired"} )                
+        else
+            WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
+        end    
+	end
   end
 end
