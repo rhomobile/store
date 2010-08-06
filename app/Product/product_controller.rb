@@ -15,25 +15,25 @@ class ProductController < Rho::RhoController
 
   # GET /Product/{1}
   def show
-    # Only run async for when supporting transitions
-    if @request['headers']['Jqtouch']
-      # This is an example of how to transition from an async http request. See show_callback below
-      # for completed transition.
-      Rho::AsyncHttp.get(
-              :url =>  "http://rhostore.heroku.com/products/#{@params['product_id']}.json",
-              :callback => (url_for :action => :show_callback),
-              :callback_param => "")
-
-      # A Wait-Page response header notifies JavaScript that an async request has been spawned and that the current
-      # rendering page should be treated as an interstitial page. Here we send back a waiting screen. Note that
-      # interstitial pages are not treated as part of the browser's history.
-      @response['headers']['Wait-Page'] = 'true'
-      render :action => :waiting
-    else
-      @product = Product.find(@params['id'])
-      render :action => :show
-    end
+    @product = Product.find(@params['id'])
+    render :action => :show
   end
+
+  def async_show
+    # This is an example of how to transition from an async http request. See show_callback below
+    # for completed transition.
+    Rho::AsyncHttp.get(
+            :url =>  "http://rhostore.heroku.com/products/#{@params['product_id']}.json",
+            :callback => (url_for :action => :show_callback),
+            :callback_param => caller_request_hash_to_query)
+
+    # A Wait-Page response header notifies JavaScript that an async request has been spawned and that the current
+    # rendering page should be treated as an interstitial page. Here we send back a waiting screen. Note that
+    # interstitial pages are not treated as part of the browser's history.
+    @response['headers']['Wait-Page'] = 'true'
+    render :action => :waiting
+  end
+
 
   # GET /Product/new
   def new
@@ -57,7 +57,7 @@ class ProductController < Rho::RhoController
     @product.save
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", "do_transition=#{@request['headers']['Jqtouch']}")
+    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
     SyncEngine.dosync_source(@product.source_id)
 
     @response['headers']['Wait-Page'] = 'true'
@@ -70,7 +70,7 @@ class ProductController < Rho::RhoController
     @product.update_attributes(@params['product'])
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", "do_transition=#{@request['headers']['Jqtouch']}")
+    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
     SyncEngine.dosync_source(@product.source_id)
 
     @response['headers']['Wait-Page'] = 'true'
@@ -83,7 +83,7 @@ class ProductController < Rho::RhoController
     @product.destroy
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", "do_transition=#{@request['headers']['Jqtouch']}")
+    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
     SyncEngine.dosync_source(@product.source_id)
 
     @response['headers']['Wait-Page'] = 'true'
@@ -93,11 +93,18 @@ class ProductController < Rho::RhoController
   # This is the callback method invoked after an async http request. On successful response, a JavaScript function
   # is executed to transition to that page.
   def show_callback
+    caller_request_query_to_hash
+
     if @params['status'] == 'ok'
       @product = Product.new(@params['body']['product'])
       @product.object = @product.id
-      render_transition :action => :show
+      if @caller_request['headers']['Jqtouch'] == 'true'
+        render_transition :action => :show
+      else
+        WebView.navigate url_for :action => :show, :id => @product.object
+      end
     else
+
       # In this example, an error just navigates back to the index w/o transition.
       # WebView.navigate ensures no transition occurs. An error screen could be presented to the user to
       # indicate something bad happened.
@@ -107,9 +114,11 @@ class ProductController < Rho::RhoController
   end
 
   def show_index_after_sync
+    caller_request_query_to_hash
+
     @products = Product.find(:all)
     add_objectnotify(@products)
-    if @params['do_transition'] == 'true'
+    if @caller_request['headers']['Jqtouch'] == 'true'
       render_transition :action => :index
     else
       WebView.navigate url_for :action => :index

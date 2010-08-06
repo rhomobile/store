@@ -11,7 +11,7 @@
     <% @products.each do |product| %>
     
         <li>
-          <a href="<%= url_for :action => :show, :id => product.object, :query => {:product_id => product.object} %>">
+          <a href="<%= url_for :action => :async_show, :id => product.object, :query => {:product_id => product.object} %>">
             <%= product.name %>
           </a>
         </li>
