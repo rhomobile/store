@@ -3,7 +3,9 @@
 </div>
 
 <div class="toolbar">
-  <a class="cancel" href="<%= url_for :action => :index %>">Cancel</a>
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :index %>">Cancel</a>
+  </div>
 </div>
 
 <div class="content">
@@ -12,42 +14,42 @@
     <ul>
       
           <li>
-            <label for="customer[first]">First</label>
+            <label for="customer[first]" class="fieldLabel">First</label>
             <input type="text" name="customer[first]" <%= placeholder("First") %> />
           </li>
       
           <li>
-            <label for="customer[last]">Last</label>
+            <label for="customer[last]" class="fieldLabel">Last</label>
             <input type="text" name="customer[last]" <%= placeholder("Last") %> />
           </li>
       
           <li>
-            <label for="customer[email]">Email</label>
+            <label for="customer[email]" class="fieldLabel">Email</label>
             <input type="text" name="customer[email]" <%= placeholder("Email") %> />
           </li>
       
           <li>
-            <label for="customer[phone]">Phone</label>
+            <label for="customer[phone]" class="fieldLabel">Phone</label>
             <input type="text" name="customer[phone]" <%= placeholder("Phone") %> />
           </li>
       
           <li>
-            <label for="customer[address]">Address</label>
+            <label for="customer[address]" class="fieldLabel">Address</label>
             <input type="text" name="customer[address]" <%= placeholder("Address") %> />
           </li>
       
           <li>
-            <label for="customer[city]">City</label>
+            <label for="customer[city]" class="fieldLabel">City</label>
             <input type="text" name="customer[city]" <%= placeholder("City") %> />
           </li>
       
           <li>
-            <label for="customer[state]">State</label>
+            <label for="customer[state]" class="fieldLabel">State</label>
             <input type="text" name="customer[state]" <%= placeholder("State") %> />
           </li>
       
           <li>
-            <label for="customer[zip]">Zip</label>
+            <label for="customer[zip]" class="fieldLabel">Zip</label>
             <input type="text" name="customer[zip]" <%= placeholder("Zip") %> />
           </li>
       

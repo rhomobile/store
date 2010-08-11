@@ -3,14 +3,19 @@
 </div>
 
 <div class="toolbar">
-  <a class="button" href="<%= url_for :action => :new %>">New</a>
+  <div class="leftItem regularButton">
+    <a href="<%= Rho::RhoConfig.start_path %>">Home</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :new %>">New</a>
+  </div>
 </div>
 
 <div class="content">
   <form method="POST" action="<%= url_for(:action => :search) %>">
     <ul>
       <li>
-        <label for="query">Query</label>
+        <label for="query" class="fieldLabel">Query</label>
         <input type="text" name="query" <%= placeholder("Query") %>/>
       </li>
     </ul>

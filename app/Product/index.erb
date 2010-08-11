@@ -3,19 +3,23 @@
 </div>
 
 <div class="toolbar">
-  <a class="button" href="<%= url_for :action => :new %>">New</a>
+  <div class="leftItem regularButton">
+    <a href="<%= Rho::RhoConfig.start_path %>">Home</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :new %>">New</a>
+  </div>
 </div>
 
 <div class="content">
   <ul>
     <% @products.each do |product| %>
-    
         <li>
           <a href="<%= url_for :action => :async_show, :id => product.object, :query => {:product_id => product.object} %>">
-            <%= product.name %>
+            <span class="title"><%= product.name %></span><span class="disclosure_indicator"></span>
           </a>
         </li>
-    
+
     <% end %>
   </ul>
 </div>

@@ -1,54 +1,58 @@
 <div class="pageTitle">
-  <h1><%= @customer.first%></h1>
+  <h1><%= @customer.first %></h1>
 </div>
 
 <div class="toolbar">
-  <a class="back" href="<%= url_for :action => :index %>">Back</a>
-  <a class="button" href="<%= url_for :action => :edit, :id => @customer.object %>">Edit</a>
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :index %>">Back</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :edit, :id => @product.object %>">Edit</a>
+  </div>
 </div>
 
 <div class="content">
-    <ul>
-        
-        <li>
-            <div class="label">First</div>
-            <div class="value"><%= @customer.first%></div>
-        </li>
-        
-        <li>
-            <div class="label">Last</div>
-            <div class="value"><%= @customer.last%></div>
-        </li>
-        
-        <li>
-            <div class="label">Email</div>
-            <div class="value"><%= @customer.email%></div>
-        </li>
-        
-        <li>
-            <div class="label">Phone</div>
-            <div class="value"><%= @customer.phone%></div>
-        </li>
-        
-        <li>
-            <div class="label">Address</div>
-            <div class="value"><%= @customer.address%></div>
-        </li>
-        
-        <li>
-            <div class="label">City</div>
-            <div class="value"><%= @customer.city%></div>
-        </li>
-        
-        <li>
-            <div class="label">State</div>
-            <div class="value"><%= @customer.state%></div>
-        </li>
-        
-        <li>
-            <div class="label">Zip</div>
-            <div class="value"><%= @customer.zip%></div>
-        </li>
-        
-    </ul>
+  <ul>
+
+    <li>
+      <div class="itemLabel">First</div>
+      <div class="itemValue"><%= @customer.first %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">Last</div>
+      <div class="itemValue"><%= @customer.last %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">Email</div>
+      <div class="itemValue"><%= @customer.email %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">Phone</div>
+      <div class="itemValue"><%= @customer.phone %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">Address</div>
+      <div class="itemValue"><%= @customer.address %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">City</div>
+      <div class="itemValue"><%= @customer.city %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">State</div>
+      <div class="itemValue"><%= @customer.state %></div>
+    </li>
+
+    <li>
+      <div class="itemLabel">Zip</div>
+      <div class="itemValue"><%= @customer.zip %></div>
+    </li>
+
+  </ul>
 </div>
