@@ -91,12 +91,11 @@ class SettingsController < Rho::RhoController
   
   def sync_notify
   	puts 'sync_notify: ' + @params.inspect  
-  	# refresh the current page
   	status = @params['status'] ? @params['status'] : ""
   	
   	if status == "in_progress" 	
   	    #do nothing
-  	elsif status == "ok"
+  	elsif status == "complete" || status == "ok"
         WebView.navigate Rho::RhoConfig.start_path
   	elsif status == "error"
         err_code = @params['error_code'].to_i
