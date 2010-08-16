@@ -1,42 +1,44 @@
-<div class="toolbar">
-	<h1 id="pageTitle">
-		New Product
-	</h1>
+<div class="pageTitle">
+  <h1>New <%= @product.title %></h1>
 </div>
 
-<form title="New Product" 
-	  class="panel"
-	  id="product_new_form" 
-	  method="POST" 
-	  action="<%=url_for(:action => :create)%>" selected="true">
-	<fieldset>
-		<input type="hidden" name="id" value="<%=@product.object%>"/>
-		
-		  <div class="row">
-			  <label>Name: </label>
-			  <input type="text" name="product[name]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Sku: </label>
-			  <input type="text" name="product[sku]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Brand: </label>
-			  <input type="text" name="product[brand]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Price: </label>
-			  <input type="text" name="product[price]"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Quantity: </label>
-			  <input type="text" name="product[quantity]"/>
-		  </div>
-		
-	</fieldset>
-	<input type="submit" value="Create"/>
-</form>
+<div class="toolbar">
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :index %>">Cancel</a>
+  </div>
+</div>
+
+<div class="content">
+  <form method="POST" action="<%= url_for :action => :create %>">
+    <input type="hidden" name="id" value="<%= @product.object %>"/>
+    <ul>
+
+      <li>
+        <label for="product[name]" class="fieldLabel">Name</label>
+        <input type="text" name="product[name]" <%= placeholder("Name") %> />
+      </li>
+
+      <li>
+        <label for="product[sku]" class="fieldLabel">Sku</label>
+        <input type="text" name="product[sku]" <%= placeholder("Sku") %> />
+      </li>
+
+      <li>
+        <label for="product[brand]" class="fieldLabel">Brand</label>
+        <input type="text" name="product[brand]" <%= placeholder("Brand") %> />
+      </li>
+
+      <li>
+        <label for="product[price]" class="fieldLabel">Price</label>
+        <input type="text" name="product[price]" <%= placeholder("Price") %> />
+      </li>
+
+      <li>
+        <label for="product[quantity]" class="fieldLabel">Quantity</label>
+        <input type="text" name="product[quantity]" <%= placeholder("Quantity") %> />
+      </li>
+
+    </ul>
+    <input type="submit" class="standardButton" value="Create"/>
+  </form>
+</div>

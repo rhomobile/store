@@ -1,54 +1,49 @@
 require 'rho'
 require 'rho/rhocontroller'
 require 'rho/rhoerror'
-require 'rhom/rhom_source'
-require 'time'
+require 'helpers/browser_helper'
 
 class SettingsController < Rho::RhoController
-  
+  include BrowserHelper
+
   def index
     @msg = @params['msg']
-
     render
   end
 
   def login
     @msg = @params['msg']
-    render :action => :login
+    render :action => :login, :back => '/app'
   end
 
-  def become_active_callback
-    puts 'become_active_callback' + @params.inspect
-  end
-  
   def wait_sync
-    render 
+    render
   end
-  
+
   def login_callback
-    err_code = @params['error_code'].to_i
-    if err_code == 0
+    errCode = @params['error_code'].to_i
+    if errCode == 0
       # run sync if we were successful
-      #WebView.navigate Rho::RhoConfig.start_path
-      WebView.navigate ( url_for :action => :wait_sync )
+      # WebView.navigate Rho::RhoConfig.options_path
+      WebView.navigate (url_for :action => :wait_sync)
       SyncEngine.dosync
     else
-      if err_code == Rho::RhoError::ERR_CUSTOMSYNCSERVER
+      if errCode == Rho::RhoError::ERR_CUSTOMSYNCSERVER
         @msg = @params['error_message']
       end
-        
-      if !@msg || @msg.length == 0   
-        @msg = Rho::RhoError.new(err_code).message
+
+      if !@msg || @msg.length == 0
+        @msg = Rho::RhoError.new(errCode).message
       end
-      
-      WebView.navigate ( url_for :action => :login, :query => {:msg => @msg} )
-    end  
+
+      WebView.navigate (url_for :action => :login, :query => {:msg => @msg})
+    end
   end
 
   def do_login
     if @params['login'] and @params['password']
       begin
-        SyncEngine.login(@params['login'], @params['password'], (url_for :action => :login_callback) )
+        SyncEngine.login(@params['login'], @params['password'], (url_for :action => :login_callback))
         render :action => :wait
       rescue Rho::RhoError => e
         @msg = e.message
@@ -59,36 +54,30 @@ class SettingsController < Rho::RhoController
       render :action => :login, :query => {:msg => @msg}
     end
   end
-  
+
   def logout
     SyncEngine.logout
     @msg = "You have been logged out."
-    render :action => :login, :query => {:msg => @msg}
+    render :action => :login
   end
-  
+
   def reset
     render :action => :reset
   end
-  
+
   def do_reset
     Rhom::Rhom.database_full_reset
     SyncEngine.dosync
     @msg = "Database has been reset."
     redirect :action => :index, :query => {:msg => @msg}
   end
-  
+
   def do_sync
     SyncEngine.dosync
     @msg =  "Sync has been triggered."
     redirect :action => :index, :query => {:msg => @msg}
   end
 
-  def push_notify
-  	puts 'push_notify: ' + @params.inspect  
-  	
-  	"rho_push"
-  end
-  
   def sync_notify
   	puts 'sync_notify: ' + @params.inspect  
   	status = @params['status'] ? @params['status'] : ""
@@ -114,5 +103,4 @@ class SettingsController < Rho::RhoController
         end    
 	end
   end
-  
 end

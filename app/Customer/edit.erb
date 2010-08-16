@@ -1,62 +1,62 @@
-<div class="toolbar">
-	<h1 id="pageTitle">
-		Edit <%=@customer.first%>
-	</h1>
+<div class="pageTitle">
+  <h1>Edit <%= @customer.first %></h1>
 </div>
 
-<form title="Edit Customer" 
-	  class="panel" 
-	  id="customer_edit_form" 
-	  method="POST" 
-	  action="<%=url_for(:action => :update)%>" selected="true">
-	<fieldset>
-		<input type="hidden" name="id" value="<%=@customer.object%>"/>
-		
-		  <div class="row">
-			  <label>First: </label>
-			  <input type="text" name="customer[first]" value="<%=@customer.first%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Last: </label>
-			  <input type="text" name="customer[last]" value="<%=@customer.last%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Email: </label>
-			  <input type="text" name="customer[email]" value="<%=@customer.email%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Phone: </label>
-			  <input type="text" name="customer[phone]" value="<%=@customer.phone%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Address: </label>
-			  <input type="text" name="customer[address]" value="<%=@customer.address%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>City: </label>
-			  <input type="text" name="customer[city]" value="<%=@customer.city%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>State: </label>
-			  <input type="text" name="customer[state]" value="<%=@customer.state%>"/>
-		  </div>
-		
-		  <div class="row">
-			  <label>Zip: </label>
-			  <input type="text" name="customer[zip]" value="<%=@customer.zip%>"/>
-		  </div>
-		
-	</fieldset>
-	<input type="submit" value="Update"/>
-	<p align="center">
-		<a href="<%=url_for(:action => :delete, :id => @customer.object)%>">
-			<font color="#990000">Delete</font>
-		</a>
-	</p>
-</form>
+<div class="toolbar">
+  <div class="leftItem backButton">
+    <a href="<%= url_for :action => :show, :id => @customer.object %>">Cancel</a>
+  </div>
+  <div class="rightItem regularButton">
+    <a href="<%= url_for :action => :delete, :id => @customer.object %>">Delete</a>
+  </div>
+</div>
+
+<div class="content">
+  <form method="POST" action="<%= url_for :action => :update %>">
+    <input type="hidden" name="id" value="<%= @customer.object %>"/>
+    <ul>
+
+      <li>
+        <label for="customer[first]" class="fieldLabel">First</label>
+        <input type="text" name="customer[first]" value="<%= @customer.first %>" <%= placeholder("First") %> />
+      </li>
+
+      <li>
+        <label for="customer[last]" class="fieldLabel">Last</label>
+        <input type="text" name="customer[last]" value="<%= @customer.last %>" <%= placeholder("Last") %> />
+      </li>
+
+      <li>
+        <label for="customer[email]" class="fieldLabel">Email</label>
+        <input type="text" name="customer[email]" value="<%= @customer.email %>" <%= placeholder("Email") %> />
+      </li>
+
+      <li>
+        <label for="customer[phone]" class="fieldLabel">Phone</label>
+        <input type="text" name="customer[phone]" value="<%= @customer.phone %>" <%= placeholder("Phone") %> />
+      </li>
+
+      <li>
+        <label for="customer[address]" class="fieldLabel">Address</label>
+        <input type="text" name="customer[address]" value="<%= @customer.address %>" <%= placeholder("Address") %> />
+      </li>
+
+      <li>
+        <label for="customer[city]" class="fieldLabel">City</label>
+        <input type="text" name="customer[city]" value="<%= @customer.city %>" <%= placeholder("City") %> />
+      </li>
+
+      <li>
+        <label for="customer[state]" class="fieldLabel">State</label>
+        <input type="text" name="customer[state]" value="<%= @customer.state %>" <%= placeholder("State") %> />
+      </li>
+
+      <li>
+        <label for="customer[zip]" class="fieldLabel">Zip</label>
+        <input type="text" name="customer[zip]" value="<%= @customer.zip %>" <%= placeholder("Zip") %> />
+      </li>
+
+    </ul>
+    <input type="submit" class="standardButton" value="Update"/>
+  </form>
+</div>
