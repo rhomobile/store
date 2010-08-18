@@ -5,6 +5,7 @@ version: 1.0
 vendor: rhomobile
 build: debug
 applog: rholog.txt
+bbver: 6.0
 iphone:
   configuration: Debug
   sdk: iphonesimulator4.0
