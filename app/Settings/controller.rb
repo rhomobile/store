@@ -85,7 +85,7 @@ class SettingsController < Rho::RhoController
   	if status == "in_progress" 	
   	    #do nothing
   	elsif status == "complete" || status == "ok"
-        WebView.navigate Rho::RhoConfig.start_path
+        WebView.navigate Rho::RhoConfig.start_path if ( @params['sync_type'] != 'bulk') 
   	elsif status == "error"
         err_code = @params['error_code'].to_i
         rho_error = Rho::RhoError.new(err_code)
