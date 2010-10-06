@@ -3,4 +3,6 @@
 class Product
   include Rhom::PropertyBag
   enable :sync
+  
+  #enable :full_update
 end

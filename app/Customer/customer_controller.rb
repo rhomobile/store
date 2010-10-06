@@ -15,6 +15,7 @@ class CustomerController < Rho::RhoController
   # GET /Customer/{1}
   def show
     @customer = Customer.find(@params['id'])
+    puts "@customer : #{@customer}"
     if @customer
       render :action => :show
     else
@@ -80,6 +81,7 @@ class CustomerController < Rho::RhoController
   end
 
   def search_callback
+    puts "search_callback: #{@params}"
     if @params['status'] == 'ok'
       @customers = Customer.find(:all, :conditions => {:first => @params['first']})
       render_transition :action => :search
