@@ -13,11 +13,12 @@ class AppApplication < Rho::RhoApplication
     
     # we want to be notified whenever either of these sources is synced
     SyncEngine.set_notification(-1, "/app/Settings/sync_notify", '')
-    #SyncEngine.enable_status_popup(true)
+    SyncEngine.enable_status_popup(false)
     
   end
   
   def on_activate_app
     puts "on_activate_app"
   end
+  
 end

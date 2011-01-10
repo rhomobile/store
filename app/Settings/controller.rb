@@ -11,6 +11,11 @@ class SettingsController < Rho::RhoController
     render
   end
 
+  def send_log
+    Rho::RhoConfig.send_log
+    render :action => :index
+  end
+  
   def login
     @msg = @params['msg']
     render :action => :login, :back => '/app'
@@ -66,7 +71,7 @@ class SettingsController < Rho::RhoController
   end
 
   def do_reset
-    Rhom::Rhom.database_full_reset
+    Rhom::Rhom.database_full_reset(false, false)
     SyncEngine.dosync
     @msg = "Database has been reset."
     redirect :action => :index, :query => {:msg => @msg}
@@ -81,6 +86,8 @@ class SettingsController < Rho::RhoController
   def sync_notify
   	puts 'sync_notify: ' + @params.inspect  
   	status = @params['status'] ? @params['status'] : ""
+  	
+  	Alert.show_status( "Status", "#{@params['source_name']} : #{status}", Rho::RhoMessages.get_message('hide'))
   	
   	if status == "in_progress" 	
   	    #do nothing
