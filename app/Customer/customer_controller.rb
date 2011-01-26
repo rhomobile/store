@@ -81,8 +81,7 @@ class CustomerController < Rho::RhoController
   end
 
   def search_callback
-    puts "search_callback: #{@params}"
-    if @params['status'] == 'ok'
+    if @params['status'] == 'complete'
       @customers = Customer.find(:all, :conditions => {:first => @params['first']})
       render_transition :action => :search
     else
