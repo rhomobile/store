@@ -82,8 +82,12 @@ class CustomerController < Rho::RhoController
 
   def search_callback
     if @params['status'] == 'complete'
-      @customers = Customer.find(:all, :conditions => {:first => @params['first']})
-      render_transition :action => :search
+	  if Rho.support_transitions?() 
+		@customers = Customer.find(:all, :conditions => {:first => @params['first']})
+		render_transition :action => :search
+	  else
+		WebView.navigate url_for :action => :index		
+	  end
     else
       WebView.navigate url_for :action => :index
     end
