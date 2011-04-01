@@ -94,6 +94,11 @@ class SettingsController < Rho::RhoController
   	elsif status == "complete" || status == "ok"
         WebView.navigate Rho::RhoConfig.start_path if ( @params['sync_type'] != 'bulk') 
   	elsif status == "error"
+  	
+        if @params['server_errors'] && @params['server_errors']['create-error']
+            SyncEngine.on_sync_create_error( @params['source_name'], @params['server_errors']['create-error'].keys(), :delete)
+        end
+  	
         err_code = @params['error_code'].to_i
         rho_error = Rho::RhoError.new(err_code)
         
