@@ -83,6 +83,12 @@ class SettingsController < Rho::RhoController
     redirect :action => :index, :query => {:msg => @msg}
   end
 
+  def sync_object_notify
+    puts 'sync_object_notify: ' + @params.inspect
+    
+    WebView.refresh
+  end
+    
   def sync_notify
   	puts 'sync_notify: ' + @params.inspect  
   	status = @params['status'] ? @params['status'] : ""
@@ -91,14 +97,20 @@ class SettingsController < Rho::RhoController
   	
   	if status == "in_progress" 	
   	    #do nothing
-  	elsif status == "complete" || status == "ok"
+  	elsif status == "complete" #|| status == "ok"
         WebView.navigate Rho::RhoConfig.start_path if ( @params['sync_type'] != 'bulk') 
   	elsif status == "error"
   	
         if @params['server_errors'] && @params['server_errors']['create-error']
             SyncEngine.on_sync_create_error( @params['source_name'], @params['server_errors']['create-error'].keys(), :delete)
         end
-  	
+
+        if @params['server_errors'] && @params['server_errors']['update-error']
+            puts "on_sync_update_error START" 
+            SyncEngine.on_sync_update_error( @params['source_name'], @params['server_errors']['update-error'], :retry)
+            puts "on_sync_update_error END"
+        end
+        
         err_code = @params['error_code'].to_i
         rho_error = Rho::RhoError.new(err_code)
         
