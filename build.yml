@@ -14,3 +14,9 @@ iphone:
   codesignidentity:
   entitlements:
 extensions: ["json"]
+
+android:
+  version: 2.2
+
+wp:
+  productid: '1aa73f88-4d47-4f94-acdd-ab9301d45a2a'
