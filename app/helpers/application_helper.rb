@@ -1,4 +1,3 @@
-require 'json'
 
 module ApplicationHelper
   def strip_braces(str=nil)
@@ -110,17 +109,21 @@ module ApplicationHelper
   def render_transition(params)
     @params["rho_callback"] = nil
     params[:layout] = false
+    tab_index = params[:tab_index]
+    tab_index = -1 if tab_index == nil
     # TODO: escape carriage returns instead of removing them altoegether
     content = render(params).split('\'').join('\\\'').split(/[\r\n]/).join('')
-    WebView.execute_js("Rho.insertAsyncPage('<div>#{content}</div>')")
+    content = content.unpack("U*").collect {|s| (s > 127 ? "&##{s};" : s.chr) }.join("")
+    WebView.execute_js("Rho.insertAsyncPage('<div>#{content}</div>')", tab_index)
   end
 
   def caller_request_hash_to_query
+    require 'json'
     'caller_request=' + Rho::RhoSupport.url_encode(::JSON.generate(@request))
   end
 
   def caller_request_query_to_hash
     @caller_request = Rho::JSON.parse(@params['caller_request']) if @params['caller_request']
   end
-
+  
 end

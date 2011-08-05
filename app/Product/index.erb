@@ -1,25 +1,23 @@
-<div class="pageTitle">
-  <h1>Products</h1>
-</div>
+<div data-role="page">
 
-<div class="toolbar">
-  <div class="leftItem regularButton">
-    <a href="<%= Rho::RhoConfig.start_path %>">Home</a>
+  <div data-role="header" data-position="inline">
+    <h1>Products</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">Home</a>
+    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">New</a>
   </div>
-  <div class="rightItem regularButton">
-    <a href="<%= url_for :action => :new %>">New</a>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <% @products.each do |product| %>
+
+          <li>
+            <a href="<%= url_for :action => :show, :id => product.object, :query => {:product_id => product.object} %>">
+              <%= product.name %>
+            </a>
+          </li>
+
+      <% end %>
+    </ul>
   </div>
-</div>
 
-<div class="content">
-  <ul>
-    <% @products.each do |product| %>
-        <li>
-          <a href="<%= url_for :action => :show, :id => product.object, :query => {:product_id => product.object} %>">
-            <span class="title"><%= product.name %></span><span class="disclosure_indicator"></span>
-          </a>
-        </li>
-
-    <% end %>
-  </ul>
 </div>

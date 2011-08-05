@@ -1,59 +1,56 @@
-<div class="pageTitle">
-  <h1>New <%= @customer.title %></h1>
-</div>
+<div data-role="page">
 
-<div class="toolbar">
-  <div class="leftItem backButton">
-    <a href="<%= url_for :action => :index %>">Cancel</a>
+  <div data-role="header" data-position="inline">
+    <h1>New <%= @customer.title %></h1>
+    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">Cancel</a>
   </div>
-</div>
 
-<div class="content">
-  <form method="POST" action="<%= url_for :action => :create %>">
-    <input type="hidden" name="id" value="<%= @customer.object %>"/>
-    <ul>
-      
-          <li>
-            <label for="customer[first]" class="fieldLabel">First</label>
-            <input type="text" name="customer[first]" <%= placeholder("First") %> />
-          </li>
-      
-          <li>
-            <label for="customer[last]" class="fieldLabel">Last</label>
-            <input type="text" name="customer[last]" <%= placeholder("Last") %> />
-          </li>
-      
-          <li>
-            <label for="customer[email]" class="fieldLabel">Email</label>
-            <input type="text" name="customer[email]" <%= placeholder("Email") %> />
-          </li>
-      
-          <li>
-            <label for="customer[phone]" class="fieldLabel">Phone</label>
-            <input type="text" name="customer[phone]" <%= placeholder("Phone") %> />
-          </li>
-      
-          <li>
-            <label for="customer[address]" class="fieldLabel">Address</label>
-            <input type="text" name="customer[address]" <%= placeholder("Address") %> />
-          </li>
-      
-          <li>
-            <label for="customer[city]" class="fieldLabel">City</label>
-            <input type="text" name="customer[city]" <%= placeholder("City") %> />
-          </li>
-      
-          <li>
-            <label for="customer[state]" class="fieldLabel">State</label>
-            <input type="text" name="customer[state]" <%= placeholder("State") %> />
-          </li>
-      
-          <li>
-            <label for="customer[zip]" class="fieldLabel">Zip</label>
-            <input type="text" name="customer[zip]" <%= placeholder("Zip") %> />
-          </li>
-      
-    </ul>
-    <input type="submit" class="standardButton" value="Create"/>
-  </form>
+  <div data-role="content">
+    <form method="POST" action="<%= url_for :action => :create %>">
+      <input type="hidden" name="id" value="<%= @customer.object %>"/>
+
+      <div data-role="fieldcontain">
+        <label for="customer[first]" class="fieldLabel">First</label>
+        <input type="text" name="customer[first]" <%= placeholder("First") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[last]" class="fieldLabel">Last</label>
+        <input type="text" name="customer[last]" <%= placeholder("Last") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[email]" class="fieldLabel">Email</label>
+        <input type="text" name="customer[email]" <%= placeholder("Email") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[phone]" class="fieldLabel">Phone</label>
+        <input type="text" name="customer[phone]" <%= placeholder("Phone") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[address]" class="fieldLabel">Address</label>
+        <input type="text" name="customer[address]" <%= placeholder("Address") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[city]" class="fieldLabel">City</label>
+        <input type="text" name="customer[city]" <%= placeholder("City") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[state]" class="fieldLabel">State</label>
+        <input type="text" name="customer[state]" <%= placeholder("State") %> />
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="customer[zip]" class="fieldLabel">Zip</label>
+        <input type="text" name="customer[zip]" <%= placeholder("Zip") %> />
+      </div>
+
+      <input type="submit" value="Create"/>
+    </form>
+  </div>
+
 </div>

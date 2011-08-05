@@ -408,3 +408,8 @@ h1 {
     margin: 0 8px;
     color: #565E70;
 }
+
+.errorMessage {
+    color: red;
+    text-align: center
+}

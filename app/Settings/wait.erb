@@ -1,9 +1,11 @@
-<div class="pageTitle">
-  <h1>Wait</h1>
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <h1>Wait</h1>
+    <a href="<%= url_for :controller => :Settings, :action => :logout %>" class="ui-btn-right" data-icon="star">Logout</a>
+  </div>
+
+  <div data-role="content">
+  </div>
+
 </div>
-
-<div class="toolbar"> </div>
-
-<a href=""
-    <%= url_for :action => :logout %>">Logout
-</a>

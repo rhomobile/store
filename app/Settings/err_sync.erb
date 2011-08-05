@@ -1,10 +1,11 @@
-<div class="pageTitle">
-  <h1>Sync error</h1>
-</div>
-<div class="toolbar">
-</div>
-<div class="content">
-  <p style="color: red">
-    <%= @params['msg'] %>
-  </p>
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <h1>Sync error</h1>
+  </div>
+
+  <div data-role="content">
+        <div class="error-message"><%= @params['msg'] %></div>
+  </div>
+
 </div>

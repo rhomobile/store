@@ -1,62 +1,57 @@
-<div class="pageTitle">
-  <h1>Edit <%= @customer.first %></h1>
-</div>
+<div data-role="page">
 
-<div class="toolbar">
-  <div class="leftItem backButton">
-    <a href="<%= url_for :action => :show, :id => @customer.object %>">Cancel</a>
+  <div data-role="header" data-position="inline">
+    <h1>Edit <%= @customer.first %></h1>
+    <a href="<%= url_for :action => :show, :id => @customer.object %>" class="ui-btn-left" data-icon="back" data-direction="reverse">Cancel</a>
+    <a href="<%= url_for :action => :delete, :id => @customer.object %>" class="ui-btn-right" data-icon="delete" data-direction="reverse">Delete</a>
   </div>
-  <div class="rightItem regularButton">
-    <a href="<%= url_for :action => :delete, :id => @customer.object %>">Delete</a>
-  </div>
-</div>
 
-<div class="content">
-  <form method="POST" action="<%= url_for :action => :update %>">
-    <input type="hidden" name="id" value="<%= @customer.object %>"/>
-    <ul>
+  <div data-role="content">
+    <form method="POST" action="<%= url_for :action => :update %>">
+      <input type="hidden" name="id" value="<%= @customer.object %>"/>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[first]" class="fieldLabel">First</label>
         <input type="text" name="customer[first]" value="<%= @customer.first %>" <%= placeholder("First") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[last]" class="fieldLabel">Last</label>
         <input type="text" name="customer[last]" value="<%= @customer.last %>" <%= placeholder("Last") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[email]" class="fieldLabel">Email</label>
         <input type="text" name="customer[email]" value="<%= @customer.email %>" <%= placeholder("Email") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[phone]" class="fieldLabel">Phone</label>
         <input type="text" name="customer[phone]" value="<%= @customer.phone %>" <%= placeholder("Phone") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[address]" class="fieldLabel">Address</label>
         <input type="text" name="customer[address]" value="<%= @customer.address %>" <%= placeholder("Address") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[city]" class="fieldLabel">City</label>
         <input type="text" name="customer[city]" value="<%= @customer.city %>" <%= placeholder("City") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[state]" class="fieldLabel">State</label>
         <input type="text" name="customer[state]" value="<%= @customer.state %>" <%= placeholder("State") %> />
-      </li>
+      </div>
 
-      <li>
+      <div data-role="fieldcontain">
         <label for="customer[zip]" class="fieldLabel">Zip</label>
         <input type="text" name="customer[zip]" value="<%= @customer.zip %>" <%= placeholder("Zip") %> />
-      </li>
+      </div>
 
-    </ul>
-    <input type="submit" class="standardButton" value="Update"/>
-  </form>
+      <input type="submit" value="Update"/>
+    </form>
+  </div>
+
 </div>

@@ -1,34 +1,37 @@
-<div class="pageTitle">
-  <h1>Search</h1>
-</div>
+<div data-role="page">
 
-<div class="toolbar">
-  <div class="leftItem regularButton">
-    <a href="<%= Rho::RhoConfig.start_path %>">Home</a>
+  <div data-role="header" data-position="inline">
+    <h1>Search</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse">Home</a>
+    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">New</a>
   </div>
-  <div class="rightItem regularButton">
-    <a href="<%= url_for :action => :new %>">New</a>
-  </div>
-</div>
 
-<div class="content">
-  <form method="POST" action="<%= url_for(:action => :search) %>">
-    <ul>
-      <li>
+  <div data-role="content">
+    <form method="POST" action="<%= url_for(:action => :search) %>">
+      <div data-role="fieldcontain">
         <label for="query" class="fieldLabel">Query</label>
-        <input type="text" name="query" <%= placeholder("Query") %>/>
-      </li>
-    </ul>
-    <input type="submit" class="standardButton" value="Search"/>
-  </form>
-  <div>
-    <%= "Found #{@customers.length} customer(s)." %>
+        <input type="text" name="query" <%= placeholder( "Query" ) %>/>
+      </div>
+      <input type="submit" value="Search"/>
+    </form>
+
+    <div>
+      <%= "Found #{@customers.length} customer(s)." %>
+    </div>
+
+    <% if !@customers.empty? %>
+        <ul data-role="listview">
+          <% @customers.each do |customer| %>
+
+              <li>
+                <a href="<%= url_for :action => :show, :id => customer.object %>">
+                  <%= customer.first %> <%= customer.last %>
+                </a>
+              </li>
+
+          <% end %>
+        </ul>
+    <% end %>
   </div>
-  <% if !@customers.empty? %>
-      <ul>
-        <% @customers.each do |x| %>
-            <li><%= link_to "#{x.first}", {:action => :show, :id => x.object} %></li>
-        <% end %>
-      </ul>
-  <% end %>
+
 </div>

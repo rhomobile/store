@@ -271,6 +271,7 @@ h1 {
 }
 
 .content form input[type="text"],
+.content form input[type="number"],
 .content form input[type="password"] {
     float: right;
     height: 40px;
@@ -327,4 +328,9 @@ h1 {
 
 .content ul.settings li.alertMessage span.message {
     color: red;
+}
+
+.errorMessage {
+    color: red;
+    text-align: center
 }
