@@ -10,7 +10,7 @@
     <form method="POST" action="<%= url_for(:action => :search) %>">
       <div data-role="fieldcontain">
         <label for="query" class="fieldLabel">Query</label>
-        <input type="text" name="query" <%= placeholder( "Query" ) %>/>
+        <input type="text" id="query" name="query" <%= placeholder( "Query" ) %>/>
       </div>
       <input type="submit" value="Search"/>
     </form>
