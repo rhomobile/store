@@ -1,6 +1,6 @@
 @media all and (min-width: 320px){
 	.ui-controlgroup-label { vertical-align: top; display: inline-block;  width: 20%;  margin: 0 2% 0 0;  }
-	.ui-controlgroup-controls { width: 60%; display: inline-block; } 
+	.ui-controlgroup-controls { width: 60%; display: inline-block; }
 }
 
 @media all and (min-width: 320px){
@@ -16,7 +16,16 @@
 	label.ui-input-text  { vertical-align: top; display: inline-block;  width: 20%;  margin: 0 2% 0 0 }
 	input.ui-input-text, 
 	textarea.ui-input-text, 
-	.ui-input-search { width: 60%; display: inline-block; } 
+	.ui-input-search { width: 60%; display: inline-block; }
 	.ui-input-search { width: 50%; }
 	.ui-input-search input.ui-input-text { width: 98%; /*echos rule from above*/ }
+}
+
+
+@media all and (min-width: 320px){
+    .ui-controlgroup-controls,
+    .ui-select,
+    input.ui-input-text,
+    textarea.ui-input-text,
+    .ui-input-search { margin-left: 20px; }
 }
