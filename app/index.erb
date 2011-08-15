@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/">
 
   <div data-role="header" data-position="inline">
     <h1>Store</h1>
@@ -12,8 +12,8 @@
     <ul data-role="listview">
       <% if SyncEngine::logged_in > 0 %>
 
-          <li><a href="/app/Product">Products</a></li>
-          <li><a href="/app/Customer">Customers</a></li>
+          <li><a href="Product">Products</a></li>
+          <li><a href="Customer">Customers</a></li>
 
       <% else %>
 
