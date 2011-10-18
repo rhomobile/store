@@ -115,11 +115,12 @@ class ProductController < Rho::RhoController
 
   def show_index_after_sync
     caller_request_query_to_hash
+    status = @params['status'] ? @params['status'] : ""
 
     @products = Product.find(:all)
     add_objectnotify(@products)
     if @caller_request['headers']['Transition-Enabled'] == 'true'
-      render_transition :action => :index
+      render_transition :action => :index if status == "complete" || status == "ok"
     else
       WebView.navigate url_for :action => :index
     end

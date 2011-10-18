@@ -15,6 +15,7 @@ MinSeverity  = 0
 LogToOutput = 1
 LogCategories = *
 ExcludeLogCategories =
+#MaxLogFileSize=0
 KeepTrackOfLastVisitedPage = 0 
 LastVisitedPage = ''
 
