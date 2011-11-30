@@ -2,15 +2,26 @@ require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/browser_helper'
 
+
 class ProductController < Rho::RhoController
   include BrowserHelper
   include ApplicationHelper
 
   #GET /Product
   def index
-    @products = Product.find(:all)
+    if ($pagesize > 0)
+      @products = Product.find(:all, :per_page => $pagesize)
+    else
+      @products = Product.find(:all)
+    end
     add_objectnotify(@products)
     render
+  end
+
+  def getpage
+    page = @params['page'].nil? ? 1 : @params['page'].to_i
+    @products = Product.find(:all, :per_page => $pagesize, :offset => page * $pagesize)
+    render :layout => false, :use_layout_on_ajax => true
   end
 
   # GET /Product/{1}

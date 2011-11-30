@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" class="productPage">
 
   <div data-role="header" data-position="inline">
     <h1>Products</h1>
@@ -8,7 +8,7 @@
   </div>
 
   <div data-role="content">
-    <ul data-role="listview">
+    <ul data-role="listview" class="endless productList">
       <% @products.each do |product| %>
 
           <li>
@@ -18,7 +18,14 @@
           </li>
 
       <% end %>
+      <li class="loadingMessage">Loading more..</li>
     </ul>
   </div>
 
+  <script type="text/javascript">
+    Rho.setupEndlessScroll("div.productPage", "ul.productList", "li.loadingMessage",
+            "<%= url_for :action => :getpage, :query => {:page => ""} %>");
+  </script>
 </div>
+
+

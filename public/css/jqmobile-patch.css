@@ -43,3 +43,11 @@
         word-wrap: break-word;  /* breaks-up long strings with no spaces */
     }
 }
+
+/* endless scrolling feature support */
+div.ui-page-active ul.endless.loading li.loadingMessage {
+    display: block;
+}
+div.ui-page-active ul.endless li.loadingMessage {
+    display: none;
+}
