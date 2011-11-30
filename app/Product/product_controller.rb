@@ -18,7 +18,7 @@ class ProductController < Rho::RhoController
     render
   end
 
-  def getpage
+  def page
     page = @params['page'].nil? ? 1 : @params['page'].to_i
     @products = Product.find(:all, :per_page => $pagesize, :offset => page * $pagesize)
     render :layout => false, :use_layout_on_ajax => true
