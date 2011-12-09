@@ -46,12 +46,31 @@
                 // So we are going to tag Wait-Page HTML content by some HTML attribute
                 // to detect it in "pagebeforechange" event handler and then perform
                 // preventDefault() to let jQM to release isPageTransitioning lock.
-                origSuccess('<div data-role="page" data-rho-wait-page="true"><!-- intentionally empty --></div>');
+                //origSuccess('<div data-role="page" data-rho-wait-page="true"><!-- intentionally empty --></div>');
+                origSuccess(html.replace(/data-role=["']page["']/,
+                    'data-role="page" data-rho-wait-page="true"'));
             } else {
                 origSuccess(html);
             }
         }
 
+    });
+
+/*
+    $(document).bind( "pagechange", function(e, data) {
+        // We only want to handle changePage() calls where the caller is
+        // providing us an already loaded page.
+        if ( !(typeof data.toPage === "string") ) {
+            var pageDiv = data.toPage[0];
+            if ("true" === pageDiv.getAttribute("data-rho-wait-page")) {
+                if (0 < $.mobile.urlHistory.activeIndex) {
+                    $.mobile.urlHistory.activeIndex--;
+                    $.mobile.urlHistory.clearForward();
+                } else {
+                    $.mobile.urlHistory.stack = [];
+                }
+            }
+        }
     });
 
     $(document).bind( "pagebeforechange", function(e, data) {
@@ -66,7 +85,7 @@
             }
         }
     });
-
+*/
 
     //shared page enhancements
 	function enhancePage( $page, role ) {
