@@ -1,4 +1,4 @@
-sdk:
+#sdk: c:/projects/rhodes
 sdkversion: 3.2.0
 name: store
 version: 1.0
@@ -7,6 +7,10 @@ build: debug
 applog: rholog.txt
 bbver: 6.0
 #wmsdk: "MC3000c50b (ARMV4I)"
+
+#capabilities: 
+#- motorola
+
 iphone:
   configuration: Debug
   sdk: iphonesimulator5.0
@@ -14,7 +18,11 @@ iphone:
   provisionprofile:
   codesignidentity:
   entitlements:
-extensions: ["json"]
+
+wm:
+  extensions: ["webkit-browser"] 
+
+extensions: ["json"] 
 
 android:
   version: 2.2
@@ -25,6 +33,5 @@ wp:
 symbian:
   uid: '0xea92ef73'
 
-#capabilities: 
-#- webkit_browser
- 
+#bb:
+#  ignore_bb6_suffix: 1

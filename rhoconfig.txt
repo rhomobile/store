@@ -23,6 +23,8 @@ LastVisitedPage = ''
 # For example: 'http://localhost:9292/application'
 #syncserver = 'http://localhost:9292/application'
 syncserver = 'http://rhodes-store-server.heroku.com/application'
+#syncserver = 'http://174.129.23.128/application'
+
 sync_poll_interval=0
 
 #syncserver = 'http://store-bulk.rhohub.com/application'
@@ -38,3 +40,5 @@ push_service_url  = 'https://pushapi.eval.blackberry.com/'
 push_service_port = 20558
 push_service_appname = 'RhoTest'
 push_service_type = 'BPAS'
+
+use_bb_full_browser=6
