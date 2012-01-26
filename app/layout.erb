@@ -60,6 +60,9 @@
             });
         </script>
         <script type="text/javascript" charset="utf-8" src="/public/jqmobile/jquery.mobile-1.0.min.js"></script>
+        <% if System::get_property('platform') == 'WP7'%>
+          <script type="text/javascript" charset="utf-8" src="/public/js/jquery-wp7-patch.js"></script>
+        <% end %>
         <script type="text/javascript" charset="utf-8" src="/public/js/jqmobile-patch.js"></script>
         <% if $pagesize > 0 %>
             <script type="text/javascript" charset="utf-8" src="/public/js/jquery.endless-scroll.js"></script>
