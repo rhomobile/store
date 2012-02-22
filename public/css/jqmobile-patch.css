@@ -51,3 +51,12 @@ div.ui-page-active ul.endless.loading li.loadingMessage {
 div.ui-page-active ul.endless li.loadingMessage {
     display: none;
 }
+
+/*
+Fix for flying screen (horizontal axis motions) issue
+proposed here: https://groups.google.com/d/msg/rhomobile/ZfGetqYv-JI/KpncA9zHAlQJ
+*/
+
+div.ui-header {
+   border-style: solid none;
+}
