@@ -23,8 +23,10 @@
   </div>
 
   <script type="text/javascript">
-    Rho.setupEndlessScroll("div.productPage", "ul.productList", "li.loadingMessage",
+    if ("undefined" != typeof Rho) {
+        Rho.setupEndlessScroll("div.productPage", "ul.productList", "li.loadingMessage",
             "<%= url_for :action => :page, :query => {:page => ""} %>");
+    }
   </script>
 </div>
 

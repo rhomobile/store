@@ -9,6 +9,7 @@ class ProductController < Rho::RhoController
 
   #GET /Product
   def index
+    $pagesize = 0 if $pagesize.nil?
     if ($pagesize > 0)
       @products = Product.find(:all, :per_page => $pagesize)
     else
@@ -19,6 +20,7 @@ class ProductController < Rho::RhoController
   end
 
   def page
+    $pagesize = 0 if $pagesize.nil?
     page = @params['page'].nil? ? 1 : @params['page'].to_i
     @products = Product.find(:all, :per_page => $pagesize, :offset => page * $pagesize)
     render :layout => false, :use_layout_on_ajax => true
