@@ -123,7 +123,7 @@ class SettingsController < Rho::RhoController
             SyncEngine.dosync
         elsif err_code == Rho::RhoError::ERR_UNATHORIZED
             WebView.navigate ( url_for :action => :login, :query => {:msg => "Server credentials are expired"} )                
-        else
+        elsif err_code != Rho::RhoError::ERR_CUSTOMSYNCSERVER
             WebView.navigate ( url_for :action => :err_sync, :query => {:msg => @msg} )
         end    
 	end
