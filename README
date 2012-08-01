@@ -3,11 +3,9 @@ Rhostore
 a simple example application used to demonstrate and test sync
 --------------------
 
-Install rhodes:
+Install rhodes: http://docs.rhomobile.com/rhodes/introduction
 
-  gem install rhodes
-
-Install rhosync: http://wiki.rhomobile.com/index.php/RhoSync
+Install rhoconnect: http://docs.rhomobile.com/rhoconnect/introduction
 
 Download and run store-server: http://github.com/rhomobile/store-server
 
