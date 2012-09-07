@@ -6,10 +6,9 @@ vendor: rhomobile
 build: debug
 applog: rholog.txt
 bbver: 6.0
-#wmsdk: "MC3000c50b (ARMV4I)"
 
-#capabilities: 
-#- motorola
+wm:
+  #sdk: "MC3000c50b (ARMV4I)"
 
 iphone:
   configuration: Debug
@@ -18,9 +17,6 @@ iphone:
   provisionprofile:
   codesignidentity:
   entitlements:
-
-wm:
-  extensions: ["webkit-browser"] 
 
 extensions: ["json"] 
 
