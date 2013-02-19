@@ -12,7 +12,7 @@ wm:
 
 iphone:
   configuration: Debug
-  sdk: iphonesimulator5.0
+  sdk: iphonesimulator6.0
   emulator: 4.0.1
   provisionprofile:
   codesignidentity:
