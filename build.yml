@@ -1,4 +1,6 @@
 #sdk: c:/projects/rhodes
+sdk: ../rhodes
+
 sdkversion: 3.2.0
 name: store
 version: 1.0
