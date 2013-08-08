@@ -72,7 +72,7 @@ class SettingsController < Rho::RhoController
   end
 
   def do_reset
-    Rho::ORM.databaseFullReset(false, false)
+    Rhom::Rhom.database_full_reset(false, false)
     Rho::RhoConnectClient.doSync
     @msg = "Database has been reset."
     redirect :action => :index, :query => {:msg => @msg}
@@ -119,7 +119,7 @@ class SettingsController < Rho::RhoController
         @msg = rho_error.message() unless @msg && @msg.length > 0   
 
         if  rho_error.unknown_client?(@params['error_message'])
-            Rho::ORM.databaseClientReset
+            Rhom::Rhom.database_client_reset
             Rho::RhoConnectClient.doSync
         elsif err_code == Rho::RhoError::ERR_UNATHORIZED
             Rho::WebView.navigate ( url_for :action => :login, :query => {:msg => "Server credentials are expired"} )
