@@ -35,7 +35,7 @@ class ProductController < Rho::RhoController
   def async_show
     # This is an example of how to transition from an async http request. See show_callback below
     # for completed transition.
-    Rho::AsyncHttp.get(
+    Rho::Network.get(
             :url =>  "http://rhostore.heroku.com/products/#{@params['product_id']}.json",
             :callback => (url_for :action => :show_callback),
             :callback_param => caller_request_hash_to_query)
@@ -70,8 +70,8 @@ class ProductController < Rho::RhoController
     @product.save
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
-    SyncEngine.dosync_source(@product.source_id)
+    Product.setNotification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
+    Rho::RhoConnectClient.doSyncSource('Product')
 
     @response['headers']['Wait-Page'] = 'true'
     render :action => :waiting
@@ -83,8 +83,8 @@ class ProductController < Rho::RhoController
     @product.update_attributes(@params['product'])
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
-    SyncEngine.dosync_source(@product.source_id)
+    Product.setNotification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
+    Rho::RhoConnectClient.doSyncSource('Product')
 
     @response['headers']['Wait-Page'] = 'true'
     render :action => :waiting
@@ -96,8 +96,8 @@ class ProductController < Rho::RhoController
     @product.destroy
 
     # immediately send to the server and show index after sync
-    Product.set_notification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
-    SyncEngine.dosync_source(@product.source_id)
+    Product.setNotification("/app/Product/show_index_after_sync", caller_request_hash_to_query)
+    Rho::RhoConnectClient.doSyncSource('Product')
 
     @response['headers']['Wait-Page'] = 'true'
     render :action => :waiting
@@ -114,14 +114,14 @@ class ProductController < Rho::RhoController
       if @caller_request['headers']['Transition-Enabled'] == 'true'
         render_transition :action => :show
       else
-        WebView.navigate url_for :action => :show, :id => @product.object
+        Rho::WebView.navigate url_for :action => :show, :id => @product.object
       end
     else
 
       # In this example, an error just navigates back to the index w/o transition.
-      # WebView.navigate ensures no transition occurs. An error screen could be presented to the user to
+      # Rho::WebView.navigate ensures no transition occurs. An error screen could be presented to the user to
       # indicate something bad happened.
-      WebView.navigate url_for :action => :index
+      Rho::WebView.navigate url_for :action => :index
     end
 
   end
@@ -135,7 +135,7 @@ class ProductController < Rho::RhoController
     if @caller_request['headers']['Transition-Enabled'] == 'true'
       render_transition :action => :index if status == "complete" || status == "ok"
     else
-      WebView.navigate url_for :action => :index
+      Rho::WebView.navigate url_for :action => :index
     end
   end
 end

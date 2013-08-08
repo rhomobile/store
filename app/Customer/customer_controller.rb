@@ -45,7 +45,7 @@ class CustomerController < Rho::RhoController
     @customer.save
 
     # immediately send to the server
-    SyncEngine.dosync_source(@customer.source_id)
+    Rho::RhoConnectClient.doSyncSource('Customer')
 
     redirect :action => :index
   end
@@ -56,7 +56,7 @@ class CustomerController < Rho::RhoController
     @customer.update_attributes(@params['customer'])
 
     # immediately send to the server
-    SyncEngine::dosync(false)
+    Rho::RhoConnectClient.doSync(false)
 
     redirect :action => :index
   end
@@ -67,7 +67,7 @@ class CustomerController < Rho::RhoController
     @customer.destroy
 
     # immediately send to the server
-    SyncEngine::dosync(false)
+    Rho::RhoConnectClient.doSync(false)
     redirect :action => :index
   end
 
@@ -82,14 +82,14 @@ class CustomerController < Rho::RhoController
 
   def search_callback
     if @params['status'] == 'complete'
-	  if Rho.support_transitions?() 
-		@customers = Customer.find(:all, :conditions => {:first => @params['first']})
-		render_transition :action => :search
-	  else
-		WebView.navigate url_for :action => :index		
-	  end
+      if Rho.support_transitions?() #TODO: find new api method
+        @customers = Customer.find(:all, :conditions => {:first => @params['first']})
+        render_transition :action => :search
+      else
+        Rho::WebView.navigate url_for :action => :index
+      end
     else
-      WebView.navigate url_for :action => :index
+      Rho::WebView.navigate url_for :action => :index
     end
   end
 

@@ -1,8 +1,8 @@
-<div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/">
+<div data-role="page" data-url="<%= Rho::Application.startURI %>/">
 
   <div data-role="header" data-position="inline">
     <h1>Store</h1>
-    <% if SyncEngine::logged_in > 0 %>
+    <% if Rho::RhoConnectClient.isLoggedIn() %>
         <a href="<%= url_for :controller => :Settings, :action => :do_sync %>" class="ui-btn-left" data-icon="refresh">Sync</a>
         <a href="<%= url_for :controller => :Settings, :action => :logout %>" class="ui-btn-right" data-icon="star">Logout</a>
     <% end %>
@@ -10,7 +10,7 @@
 
   <div data-role="content">
     <ul data-role="listview">
-      <% if SyncEngine::logged_in > 0 %>
+      <% if Rho::RhoConnectClient.isLoggedIn() %>
 
           <li><a href="Product">Products</a></li>
           <li><a href="Customer">Customers</a></li>
